@@ -1,0 +1,83 @@
+---
+export interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+// Giscus 配置 - 部署前需修改为你的仓库信息
+const GISCUS_REPO = 'labsambi/labsambi.github.io';
+const GISCUS_REPO_ID = 'R_kgDOGbbYyw';
+const GISCUS_CATEGORY = 'Announcements';
+const GISCUS_CATEGORY_ID = 'DIC_kwDOGbbYy84DAvxV';
+---
+
+<div class="comments-section">
+  <h3 class="comments-title">💬 评论</h3>
+  {
+    GISCUS_REPO_ID ? (
+      <div class="giscus-wrapper">
+        <script
+          src="https://giscus.app/client.js"
+          data-repo={GISCUS_REPO}
+          data-repo-id={GISCUS_REPO_ID}
+          data-category={GISCUS_CATEGORY}
+          data-category-id={GISCUS_CATEGORY_ID}
+          data-mapping="specific"
+          data-term={title}
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="preferred_color_scheme"
+          data-lang="zh-CN"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async
+        >
+        </script>
+      </div>
+    ) : (
+      <div class="comments-placeholder">
+        <p>评论功能尚未配置。</p>
+        <p>请在 <code>src/components/Comments.astro</code> 中配置 Giscus 参数以启用评论。</p>
+        <p>
+          <a href="https://giscus.app/zh-CN" target="_blank" class="giscus-link">
+            前往 Giscus 配置 →
+          </a>
+        </p>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .comments-section {
+    margin-top: 2rem;
+  }
+
+  .comments-title {
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    color: var(--color-text);
+  }
+
+  .comments-placeholder {
+    background: var(--color-bg-alt);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    line-height: 2;
+  }
+
+  .comments-placeholder code {
+    background: var(--color-card);
+  }
+
+  .giscus-link {
+    font-weight: 600;
+  }
+</style>

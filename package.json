@@ -1,0 +1,21 @@
+{
+  "name": "my-blog",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "postbuild": "npx pagefind --site dist",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.0",
+    "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/mdx": "^4.0.0",
+    "pagefind": "^1.1.0",
+    "sharp": "^0.33.0"
+  }
+}

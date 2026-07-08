@@ -1,0 +1,133 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../utils/posts';
+import Comments from '../components/Comments.astro';
+
+export interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+const { title, description, date, tags, category } = post.data;
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="post">
+    <header class="post-header">
+      <div class="post-meta-top">
+        {category && <a href={`/categories/${category}`} class="post-category">{category}</a>}
+        <span class="post-date">{formatDate(date)}</span>
+      </div>
+      <h1 class="post-title">{title}</h1>
+      {description && <p class="post-desc">{description}</p>}
+      {tags.length > 0 && (
+        <div class="post-tags">
+          {tags.map((tag) => (
+            <a href={`/tags/${tag}`} class="tag">{tag}</a>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <div class="post-content">
+      <slot />
+    </div>
+
+    <footer class="post-footer">
+      <Comments title={title} />
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .post {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .post-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .post-meta-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+  }
+
+  .post-category {
+    background: var(--color-accent);
+    color: #fff !important;
+    padding: 0.15em 0.7em;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+
+  .post-title {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .post-desc {
+    color: var(--color-text-light);
+    font-size: 1.05rem;
+    max-width: 560px;
+    margin: 0 auto 1rem;
+  }
+
+  .post-tags {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    background: var(--color-tag-bg);
+    color: var(--color-tag-text);
+    padding: 0.2em 0.7em;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    transition: all 0.2s ease;
+  }
+
+  .tag:hover {
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  .post-content {
+    font-size: 1.05rem;
+    line-height: 1.9;
+  }
+
+  .post-content :global(img) {
+    margin: 1.5rem auto;
+    display: block;
+  }
+
+  .post-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media (max-width: 640px) {
+    .post-title {
+      font-size: 1.6rem;
+    }
+    .post-content {
+      font-size: 1rem;
+    }
+  }
+</style>

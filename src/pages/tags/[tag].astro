@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPostsByTag, getAllTags } from '../../utils/posts';
+
+export async function getStaticPaths() {
+  const tags = await getAllTags();
+  return tags.map(({ name }) => ({
+    params: { tag: name },
+  }));
+}
+
+const { tag } = Astro.params;
+const posts = await getPostsByTag(tag!);
+---
+
+<BaseLayout title={`标签: ${tag}`} description={`浏览标签为 "${tag}" 的所有文章`}>
+  <div class="tag-header">
+    <a href="/tags" class="back-link">← 所有标签</a>
+    <h1 class="page-title">🏷️ {tag}</h1>
+    <p class="page-count">共 {posts.length} 篇文章</p>
+  </div>
+
+  <div class="posts-list">
+    {posts.map((post) => <PostCard post={post} />)}
+  </div>
+</BaseLayout>
+
+<style>
+  .tag-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 0.88rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-light);
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .page-count {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+  }
+</style>

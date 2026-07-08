@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="关于" description="关于我和这个博客">
+  <article class="about">
+    <h1 class="about-title">👋 关于我</h1>
+
+    <section class="about-section">
+      <h2>我是谁</h2>
+      <p>你好！我是一名热爱技术与生活的开发者。这个博客是我在互联网上的一片小天地，用来记录学习、思考和生活中的点滴。</p>
+    </section>
+
+    <section class="about-section">
+      <h2>关于博客</h2>
+      <p>这个博客使用 <strong>Astro</strong> 构建，托管在 <strong>GitHub Pages</strong> 上。选择了简洁文艺的设计风格，希望给你带来舒适的阅读体验。</p>
+
+      <div class="tech-stack">
+        <span class="tech-badge">🚀 Astro</span>
+        <span class="tech-badge">📝 MDX</span>
+        <span class="tech-badge">🔍 Pagefind</span>
+        <span class="tech-badge">💬 Giscus</span>
+        <span class="tech-badge">📦 GitHub Pages</span>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>联系方式</h2>
+      <p>如果你有任何想法或建议，欢迎通过以下方式联系我：</p>
+      <ul class="contact-list">
+        <li>📧 Email: <a href="mailto:your-email@example.com">your-email@example.com</a></li>
+        <li>🐙 GitHub: <a href="https://github.com/labsambi" target="_blank">labsambi</a></li>
+      </ul>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .about {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .about-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .about-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .about-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--color-accent);
+    display: inline-block;
+  }
+
+  .about-section p {
+    color: var(--color-text-light);
+    line-height: 1.9;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+
+  .tech-badge {
+    background: var(--color-tag-bg);
+    color: var(--color-tag-text);
+    padding: 0.3em 0.8em;
+    border-radius: 20px;
+    font-size: 0.88rem;
+  }
+
+  .contact-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .contact-list li {
+    margin-bottom: 0.5rem;
+    color: var(--color-text-light);
+  }
+</style>

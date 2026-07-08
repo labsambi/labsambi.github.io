@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllCategories } from '../../utils/posts';
+
+const categories = await getAllCategories();
+---
+
+<BaseLayout title="分类" description="按分类浏览文章">
+  <h1 class="page-title">📂 文章分类</h1>
+
+  <div class="categories-list">
+    {categories.map(({ name, count }) => (
+      <a href={`/categories/${name}`} class="category-card">
+        <span class="cat-icon">
+          {name === '技术' ? '💻' :
+           name === '随笔' ? '📝' :
+           name === '生活' ? '🌿' :
+           name === '教程' ? '📚' :
+           name === '笔记' ? '📒' : '📄'}
+        </span>
+        <div class="cat-info">
+          <span class="cat-name">{name}</span>
+          <span class="cat-count">{count} 篇</span>
+        </div>
+      </a>
+    ))}
+
+    {categories.length === 0 && (
+      <p class="empty">暂无分类</p>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .page-title {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .categories-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .category-card {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    transition: all 0.25s ease;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .category-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+  }
+
+  .cat-icon {
+    font-size: 1.8rem;
+  }
+
+  .cat-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cat-name {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .cat-count {
+    font-size: 0.82rem;
+    color: var(--color-text-light);
+  }
+
+  .empty {
+    text-align: center;
+    color: var(--color-text-light);
+    padding: 3rem 0;
+  }
+</style>

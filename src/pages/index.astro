@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import Search from '../components/Search.astro';
+import { getAllPosts } from '../utils/posts';
+
+const posts = await getAllPosts();
+---
+
+<BaseLayout title="首页" description="个人博客 - 用文字记录生活，用代码改变世界">
+  <section class="hero">
+    <h1 class="hero-title">✍️ 用文字记录生活</h1>
+    <p class="hero-subtitle">这里是属于我的小天地，欢迎你来做客 🍃</p>
+  </section>
+
+  <Search />
+
+  <section class="posts-list">
+    {
+      posts.length > 0 ? (
+        posts.map((post) => <PostCard post={post} />)
+      ) : (
+        <div class="empty-state">
+          <p>还没有文章，快去写第一篇吧 ✨</p>
+        </div>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 3rem 0 2rem;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+    font-style: italic;
+  }
+
+  .posts-list {
+    margin-top: 1rem;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--color-text-light);
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 640px) {
+    .hero-title {
+      font-size: 1.6rem;
+    }
+    .hero-subtitle {
+      font-size: 0.95rem;
+    }
+  }
+</style>
